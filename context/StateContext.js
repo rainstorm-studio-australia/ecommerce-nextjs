@@ -54,23 +54,23 @@ export const StateContext = ({children}) => {
 
     //edit items in the mini cart
     const toggleCartItemQuantity = (id, value) => {
+        //get the product & index that needs update
         foundProduct = cartItems.find((item) => item._id === id)
         index = cartItems.findIndex((product) => product._id === id)
 
         //remove the foundproduct from cart
         const newCartItems = cartItems.filter((item) => item._id !== id);
-
         //inc -> increase qty
         if(value === 'inc') {
             setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 }]);
-            setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price * foundProduct.quantity);
+            setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
             setTotalQuantities((prevTotalQuanties) => prevTotalQuanties + 1);
         }
         //dec -> decrease qty
         else if(value === 'dec') {
             if(foundProduct.quantity > 1) {
                 setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 }]);
-                setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
+                setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
                 setTotalQuantities((prevTotalQuanties) => prevTotalQuanties - 1);
             }
         }
